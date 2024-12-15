@@ -23,5 +23,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server Running on http://localhost:${process.env.PORT}`);
+  console.log(`Server Running on https://book-charm-backend.onrender.com:${process.env.PORT}`);
 });
