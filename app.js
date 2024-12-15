@@ -7,6 +7,7 @@ require("./db/db");
 const User = require("./routes/user");
 const Books = require("./routes/book");
 const Fav = require("./routes/fav");
+const Cart = require("./routes/cart");
 
 app.use(cors());
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/api/v1", User);
 app.use("/api/v1", Books);
 app.use("/api/v1", Fav);
+app.use("/api/v1", Cart);
 
 
 app.get("/", (req, res) => {
