@@ -4,10 +4,12 @@ const jwt = require("jsonwebtoken");
 const Book = require("../models/book");
 const { authToken } = require("./userAuth");
 
+// add a new book
 router.post("/add-book", authToken, async (req, res) => {
   try {
     const { id } = req.headers;
     const user = await User.findById(id);
+    // check for the admin role
     if (user.role !== "admin") {
       return res.status(400).json({ message: "Do not have Access" });
     }
@@ -25,6 +27,7 @@ router.post("/add-book", authToken, async (req, res) => {
   }
 });
 
+// get all books
 router.get("/get-all-books", async (req, res) => {
   try {
     const books = await Book.find().sort({ createdAt: -1 });
@@ -38,6 +41,7 @@ router.get("/get-all-books", async (req, res) => {
   }
 });
 
+// get recent books
 router.get("/get-recent-books", async (req, res) => {
   try {
     const books = await Book.find().sort({ createdAt: -1 }).limit(4);
@@ -51,6 +55,7 @@ router.get("/get-recent-books", async (req, res) => {
   }
 });
 
+// get book by id
 router.get("/get-book-by-id/:id", async (req, res) => {
   try {
     const { id } = req.params;

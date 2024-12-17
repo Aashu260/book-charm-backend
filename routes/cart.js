@@ -7,6 +7,7 @@ router.put("/add-to-cart", authToken, async (req, res) => {
     const { bookid, id } = req.headers;
     const userData = await User.findById(id);
 
+    //if book is already in cart
     const isBookinCart = userData.cart.includes(bookid);
     if (isBookinCart) {
       return res.json({
@@ -14,6 +15,7 @@ router.put("/add-to-cart", authToken, async (req, res) => {
         message: "Book is already in cart",
       });
     }
+    // add book to cart
     await User.findByIdAndUpdate(id, { $push: { cart: bookid } });
     return res.json({
       status: "success",
@@ -25,6 +27,7 @@ router.put("/add-to-cart", authToken, async (req, res) => {
   }
 });
 
+// remove book from cart
 router.put("/remove-from-cart/:bookid", authToken, async (req, res) => {
   try {
     const { bookid } = req.params;
@@ -42,6 +45,7 @@ router.put("/remove-from-cart/:bookid", authToken, async (req, res) => {
   }
 });
 
+// get users cart
 router.get("/get-user-cart", authToken, async (req, res) => {
   try {
     const { id } = req.headers;

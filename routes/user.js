@@ -6,7 +6,7 @@ const { authToken } = require("./userAuth");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-//sign-up
+//signup
 router.post("/sign-up", async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -32,8 +32,10 @@ router.post("/sign-up", async (req, res) => {
         .json({ message: "Password should be greater than 5" });
     }
 
+    // hash password
     const hashPass = await bcrypt.hash(password, 10);
 
+    //create and save new user
     const newUser = new User({
       username: username,
       email: email,
@@ -46,7 +48,7 @@ router.post("/sign-up", async (req, res) => {
   }
 });
 
-//login
+// login
 router.post("/log-in", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -78,7 +80,7 @@ router.post("/log-in", async (req, res) => {
   }
 });
 
-//get userinfo
+// get user information
 router.get("/user-info", authToken, async (req, res) => {
   try {
     const { id } = req.headers;
